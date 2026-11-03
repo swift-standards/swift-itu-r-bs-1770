@@ -1,0 +1,11 @@
+# .github/metadata.yaml
+description: "Swift implementation of ITU-R BS.1770: Algorithms to measure audio programme loudness and true-peak audio level."
+topics:
+  - standards
+  - itu
+  - itu-r-bs-1770
+  - audio
+  - loudness
+homepage: "https://swift-institute.org"
+readme:
+  family: E
