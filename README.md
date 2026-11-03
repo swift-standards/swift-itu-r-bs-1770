@@ -28,7 +28,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "ITU-R BS.1770", package: "swift-itu-r-bs-1770")
+        .product(name: "ITU-R BS 1770", package: "swift-itu-r-bs-1770")
     ]
 )
 ```

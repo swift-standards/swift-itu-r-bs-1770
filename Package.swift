@@ -12,22 +12,22 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        .library(name: "ITU-R BS.1770", targets: ["ITU-R BS.1770"])
+        .library(name: "ITU-R BS 1770", targets: ["ITU-R BS 1770"])
     ],
     dependencies: [
         .package(url: "https://github.com/swift-iso/swift-iso-9899.git", branch: "main")
     ],
     targets: [
         .target(
-            name: "ITU-R BS.1770",
+            name: "ITU-R BS 1770",
             dependencies: [
                 .product(name: "ISO 9899", package: "swift-iso-9899")
             ]
         ),
         .testTarget(
-            name: "ITU-R BS.1770 Tests",
+            name: "ITU-R BS 1770 Tests",
             dependencies: [
-                .target(name: "ITU-R BS.1770"),
+                .target(name: "ITU-R BS 1770"),
                 .product(name: "ISO 9899", package: "swift-iso-9899"),
             ]
         ),

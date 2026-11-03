@@ -2,4 +2,4 @@ version: 1
 builder:
   configs:
   - documentation_targets:
-    - ITU-R BS.1770
+    - ITU-R BS 1770
