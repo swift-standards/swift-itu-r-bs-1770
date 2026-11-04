@@ -1,38 +1,14 @@
 # swift-itu-r-bs-1770
 
-![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+Use this package when you need the integrated loudness of a piece of audio in LUFS, or its true peak in dBTP, as ITU-R BS.1770 defines them. Start from `ITU_R_BS_1770.Programme`, with one sample array per channel. Use `ITU_R_BS_1770.Biquad` only if you want the K-weighting filters on their own.
 
-Swift implementation of ITU-R BS.1770, the measurement of programme loudness and true-peak level.
+## Laws
 
-## Overview
-
-Integrated loudness in LUFS with K-weighting at any sample rate and both gates, and true peak in dBTP through four-times oversampling. Foundation-free; the mathematics comes from ISO 9899.
-
-```swift
-import ITU_R_BS_1770
-
-let programme = ITU_R_BS_1770.Programme(channels: [left, right], rate: 48_000)
-programme.loudness  // LUFS
-programme.peak      // dBTP
-```
-
-## Installation
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/swift-standards/swift-itu-r-bs-1770.git", branch: "main")
-]
-```
-
-```swift
-.target(
-    name: "App",
-    dependencies: [
-        .product(name: "ITU-R BS 1770", package: "swift-itu-r-bs-1770")
-    ]
-)
-```
-
-## License
-
-This package is licensed under the Apache License 2.0. See [LICENSE.md](LICENSE.md) for details.
+- Samples are linear, with full scale at 1.0.
+- The K-weighting is derived for any sample rate. At 48 kHz it reproduces the coefficients the recommendation tabulates.
+- Loudness is measured over 400 ms blocks that overlap by 75 %. A partial block at the end is not measured. Blocks below -70 LUFS are dropped, then blocks more than 10 LU below the loudness of the rest are dropped.
+- Silence, and a programme shorter than one block, measure negative infinity.
+- Every channel weighs 1.0 unless you pass weights. Surround channels need 1.41 from the caller.
+- True peak is the highest absolute value over all channels after four times oversampling. It is never below the highest sample, and silence measures negative infinity.
+- `ITU_R_BS_1770.Programme.loudness` and `ITU_R_BS_1770.Programme.peak` are computed again on every access. Nothing is cached.
+- `ITU_R_BS_1770.Biquad.filtered(_:)` starts from zero history on every call.
